@@ -1,22 +1,39 @@
-#include<stdio.h>
-#include<stdlib.h>
-int main() {
-	int n, A[3001], i;
-	while(scanf("%d", &n) == 1) {
-		for(i = 0; i < n; i++)
-			scanf("%d", &A[i]);
-		int mark[3001] = {0}, flag = 0;
-		for(i = 1; i < n; i++) {
-			if(abs(A[i] - A[i-1]) < n)
-				mark[abs(A[i] - A[i-1])]++;
-		}
-		for(i = 1; i < n; i++)
-			if(mark[i] == 0)
-				flag = 1;
-		if(flag)
-			puts("Not jolly");
-		else
-			puts("Jolly");
-	}
-    return 0;
+
+
+import java.io.IOException;
+import java.util.BitSet;
+import java.util.Scanner;
+
+
+public class JollyJumpers {
+
+    public static void main(String[] args) throws IOException {
+        Scanner tec = new Scanner(System.in);
+        String entrada;
+        
+        while ((entrada = tec.nextLine()) != null && !entrada.trim().equals("")) {
+            
+            String[] cadena = entrada.split(" ");
+            int n = Integer.parseInt(cadena[0]);
+
+            BitSet bSet = new BitSet(n-1);
+
+            boolean isJolly = true;
+            
+            for (int i = 1; i < cadena.length - 1; i++) {
+                int rest = Math.abs(Integer.parseInt(cadena[i]) - Integer.parseInt(cadena[i + 1]));
+                
+                if (rest != 0 || rest >= n || bSet.get(rest)) {
+                    System.out.println("Not Jolly");
+                    isJolly = false;
+                    break;
+                }
+                bSet.set(rest);
+            }
+            if (isJolly) {
+                System.out.println("Jolly");
+            }
+        }
+    }
+
 }
